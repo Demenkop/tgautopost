@@ -15,10 +15,14 @@ def send_welcome(message):
 	bot.reply_to(message, "Привет, я бот для автопостинга пикчей в Telegram канал, чтобы я начал высылать пикчи, отредактируй переменные в коде, добавь меня в админы канала, и выстави айди канала в коде.")
 
 while True:
+	if len(os.listdir(workfolder)) == 0:
+		time.sleep(timetospeep) # comment to check every second
+		return
 	pic = random.choice(os.listdir(workfolder))
 	fullpath = (workfolder + "/" + pic)
 	photo = open(fullpath, 'rb')
 	bot.send_photo(channelid, photo)
+	os.remove(fullpath)
 	time.sleep(timetospeep)
 
 bot.polling()
